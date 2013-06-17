@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kinect1", "kinect1\kinect1.csproj", "{0E023BA1-4FFC-4E6B-9F9A-BEBEBF1EF4AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Samples.Kinect.WpfViewers", "..\..\Documents\kinect\KinectforWindowsSDKV1\Dependencies\KinectWpfViewers\Microsoft.Samples.Kinect.WpfViewers.csproj", "{4DE23893-27E7-423F-9BB6-BA21DAC2C45E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Samples.Kinect.WpfViewers", "..\..\..\kinect\KinectforWindowsSDKV1\Dependencies\KinectWpfViewers\Microsoft.Samples.Kinect.WpfViewers.csproj", "{4DE23893-27E7-423F-9BB6-BA21DAC2C45E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

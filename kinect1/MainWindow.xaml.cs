@@ -25,14 +25,11 @@ namespace kinect1
             InitializeComponent();
         }
 
-        KinectSensor sensor;
-
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
             kinectSensorChooser1.KinectSensorChanged += new DependencyPropertyChangedEventHandler(kinectSensorChooser1_KinectSensorChanged);
-
         }
 
         void kinectSensorChooser1_KinectSensorChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -59,37 +56,30 @@ namespace kinect1
 
         void sensor_nuevo_AllFramesReady(object sender, AllFramesReadyEventArgs e)
         {
-            Skeleton first = GetFirstSkeleton(e);
-
-            if (first == null) return;
-
-            float x=first.Joints[JointType.HandLeft].Position.X;
-            
-        }
-
-
-        private Skeleton GetFirstSkeleton(AllFramesReadyEventArgs e)
-        {
             using (SkeletonFrame skeleton_frame = e.OpenSkeletonFrame())
             {
 
-                if (skeleton_frame == null) return null;
+                if (skeleton_frame == null) return;
+
                 Skeleton[] esqueletos = new Skeleton[skeleton_frame.SkeletonArrayLength];
                 skeleton_frame.CopySkeletonDataTo(esqueletos);
+                
                 Skeleton first = (
                     from s in esqueletos
                     where s.TrackingState == SkeletonTrackingState.Tracked
                     select s
                 ).FirstOrDefault();
 
-                return first;
+                Joint mano_derecha = first.Joints[JointType.HandRight];
+                Joint mano_izquierda = first.Joints[JointType.HandLeft];
+
+                setEllipsePosition(elipse_1, mano_derecha.Position.X, mano_derecha.Position.Y);
+                setEllipsePosition(elipse_1, mano_derecha.Position.X, mano_izquierda.Position.Y);
+                
             }
+            
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            stopSensor(kinectSensorChooser1.Kinect);
-        }
         private void stopSensor(KinectSensor sensor)
         {
             if (sensor != null)
@@ -102,6 +92,16 @@ namespace kinect1
             }
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            stopSensor(kinectSensorChooser1.Kinect);
+        }
+
+        private void setEllipsePosition(Ellipse elipse, double X, double Y)
+        {
+            Canvas.SetLeft(elipse, X);
+            Canvas.SetTop(elipse, Y);
+        }
       
 
 
